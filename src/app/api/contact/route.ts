@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
 
-    const whereClause = id ? { id: Number(id) } : {};
+    const whereClause = id ? { id: id } : {};
 
     const posts = await prisma.contact.findMany({
       where: whereClause,

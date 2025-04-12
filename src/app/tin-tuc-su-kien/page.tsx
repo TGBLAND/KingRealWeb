@@ -228,7 +228,7 @@ export default async function BlogsPage() {
                     variant="ghost"
                     className="gap-2 px-0 text-primary"
                   >
-                    <Link href={`/tin-tuc-su-kien-detail/${post.slug}`}>
+                    <Link href={`/tin-tuc-su-kien/${post.slug}`}>
                       Đọc tiếp
                       <ArrowRight size={16} />
                     </Link>

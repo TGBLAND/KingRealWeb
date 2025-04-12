@@ -245,7 +245,7 @@ export default async function MuaBanNoiThatPage() {
                     </p>
                     <Button asChild>
                       <Link
-                        href={`/goc-tu-van/mua-ban-noi-that/mua-ban-noi-that-chi-tiet/${category.id}`}
+                        href={`/goc-tu-van/mua-ban-noi-that/${category.id}`}
                       >
                         Xem chi tiết
                       </Link>

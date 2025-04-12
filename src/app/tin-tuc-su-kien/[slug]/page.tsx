@@ -43,12 +43,14 @@ export const metadata = {
 //     },
 // ];
 
-export default async function BlogDetailPage(props: {
-  params: { slug: string };
+export default async function BlogDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
 }) {
-  const { slug } = props.params;
+  const { slug } = await params;
   const posts = await prisma.post.findUnique({
-    where: { slug },
+    where: { slug: (await params).slug },
   });
 
   const contentHtml = marked(posts?.content || "");

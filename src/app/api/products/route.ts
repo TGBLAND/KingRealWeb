@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
 
-    const whereClause = id ? { id: Number(id) } : {};
+    const whereClause = id ? { id: id } : {};
 
     const products = await prisma.product.findMany({
       where: whereClause,
@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
     // If categoryId is provided, check if it exists
     if (categoryId) {
       const category = await prisma.category.findUnique({
-        where: { id: Number(categoryId) },
+        where: { id: categoryId },
       });
 
       if (!category) {
@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
         name,
         description,
         image,
-        categoryId: Number(categoryId),
+        categoryId: categoryId,
       },
       include: {
         category: true,

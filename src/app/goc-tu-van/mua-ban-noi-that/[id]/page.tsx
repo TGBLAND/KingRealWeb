@@ -9,18 +9,22 @@ export const metadata = {
     "Dịch vụ tư vấn mua bán nội thất chuyên nghiệp tại Bất Động Sản Dịch Vụ",
 };
 
+interface Params {
+  id: string;
+}
+
 export default async function MuaBanNoiThatPage({
   params,
 }: {
-  params: { id: number };
+  params: Promise<{ id: string }>;
 }) {
   const products = await prisma.product.findMany({
-    where: { categoryId: Number(params.id) },
+    where: { categoryId: (await params).id },
     include: { category: true },
   });
 
-  const cate = await prisma.category.findUnique({
-    where: { id: Number(params.id) },
+  const cate = await prisma.category.findMany({
+    where: { id: (await params).id },
   });
 
   return (
@@ -36,14 +40,14 @@ export default async function MuaBanNoiThatPage({
           />
           <div className="absolute inset-0 bg-black/60" />
         </div>
-        {cate && (
-          <div className="container relative z-10 px-4 md:px-6" key={cate.id}>
+        {cate.map((i) => (
+          <div className="container relative z-10 px-4 md:px-6" key={i.id}>
             <h1 className="text-3xl md:text-5xl font-bold text-white mb-5">
-              {cate.name}
+              {i.name}
             </h1>
             <div className="w-20 h-1 bg-[#DDB52F]"></div>
           </div>
-        )}
+        ))}
       </section>
       <div className="container px-4 md:px-6 text-center">
         <h1 style={{ fontSize: "45px", fontWeight: "bold" }}>SẢN PHẨM</h1>

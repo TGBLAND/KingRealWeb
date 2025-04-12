@@ -16,11 +16,11 @@ const updateProductSchema = z.object({
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     const product = await prisma.product.findUnique({
-      where: { id: Number(params.id) },
+      where: { id: (await context.params).id },
       include: {
         category: true,
       },
@@ -39,12 +39,11 @@ export async function GET(
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    // Check if product exists
     const existingProduct = await prisma.product.findUnique({
-      where: { id: Number(params.id) },
+      where: { id: (await context.params).id },
     });
 
     if (!existingProduct) {
@@ -60,22 +59,9 @@ export async function PATCH(
 
     const { name, description, categoryId, image } = validation.data;
 
-    // If categoryId is provided and not null, check if it exists
     if (categoryId) {
       const category = await prisma.category.findUnique({
-        where: { id: Number(categoryId) },
-      });
-
-      if (!category) {
-        return errorResponse("Category not found", 404);
-      }
-    }
-
-    let numericCategoryId: number | undefined;
-    if (categoryId !== undefined && categoryId !== null && categoryId !== "") {
-      numericCategoryId = Number(categoryId);
-      const category = await prisma.category.findUnique({
-        where: { id: numericCategoryId },
+        where: { id: categoryId },
       });
 
       if (!category) {
@@ -84,13 +70,11 @@ export async function PATCH(
     }
 
     const updatedProduct = await prisma.product.update({
-      where: { id: Number(params.id) },
+      where: { id: (await context.params).id },
       data: {
         ...(name !== undefined && { name }),
         ...(description !== undefined && { description }),
-        ...(numericCategoryId !== undefined && {
-          categoryId: numericCategoryId,
-        }),
+        ...(categoryId !== undefined && { categoryId }),
         ...(image !== undefined && { image }),
       },
       include: {
@@ -107,11 +91,11 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     const existingProduct = await prisma.product.findUnique({
-      where: { id: Number(params.id) },
+      where: { id: (await context.params).id },
     });
 
     if (!existingProduct) {
@@ -119,7 +103,7 @@ export async function DELETE(
     }
 
     await prisma.product.delete({
-      where: { id: Number(params.id) },
+      where: { id: (await context.params).id },
     });
 
     return successResponse({ message: "Product deleted successfully" });

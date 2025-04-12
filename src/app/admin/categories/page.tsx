@@ -38,6 +38,7 @@ type Category = {
   id: string;
   name: string;
   image: string;
+  slug: string;
   description: string;
   createdAt: string;
   updatedAt: string;
@@ -49,6 +50,7 @@ type Category = {
 const categorySchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   image: z.string().optional(),
+  slug: z.string().optional(),
   description: z.string().optional(),
 });
 
@@ -71,6 +73,7 @@ export default function CategoriesPage() {
     defaultValues: {
       name: "",
       image: "",
+      slug: "",
       description: "",
     },
   });
@@ -188,6 +191,7 @@ export default function CategoriesPage() {
     updateForm.reset({
       name: category.name,
       image: category.image,
+      slug: category.slug,
       description: category.description,
     });
     setIsUpdateDialogOpen(true);
@@ -228,6 +232,7 @@ export default function CategoriesPage() {
             <TableRow>
               <TableHead>Name</TableHead>
               <TableHead>Image</TableHead>
+              <TableHead>Slug</TableHead>
               <TableHead>Description</TableHead>
               <TableHead>Created At</TableHead>
               <TableHead className="text-right">Actions</TableHead>
@@ -266,6 +271,7 @@ export default function CategoriesPage() {
                       className="w-70 h-60"
                     />
                   </TableCell>
+                  <TableCell className="font-medium">{category.slug}</TableCell>
                   <TableCell className="font-medium">
                     {category.description}
                   </TableCell>
@@ -354,6 +360,17 @@ export default function CategoriesPage() {
                     />
                   </div>
                 )}
+                <Label htmlFor="slug">Slug</Label>
+                <Input
+                  id="slug"
+                  {...createForm.register("slug")}
+                  placeholder="Enter category slug"
+                />
+                {createForm.formState.errors.slug && (
+                  <p className="text-sm text-red-500">
+                    {createForm.formState.errors.slug.message}
+                  </p>
+                )}
                 <Label htmlFor="description">Description</Label>
                 <Input
                   id="description"
@@ -425,6 +442,12 @@ export default function CategoriesPage() {
                     {updateForm.formState.errors.image.message}
                   </p>
                 )}
+                <Label htmlFor="edit-slug">Slug</Label>
+                <Input
+                  id="edit-slug"
+                  {...updateForm.register("slug")}
+                  placeholder="Enter category slug"
+                />
                 <Label htmlFor="edit-description">Description</Label>
                 <Textarea
                   id="edit-description"
