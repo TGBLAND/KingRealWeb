@@ -1,14 +1,21 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { ArrowRight, Building, Users, Award, Newspaper } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import prisma from './lib/db';
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, Building, Users, Award, Newspaper } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import prisma from "./lib/db";
 
-export  default async function Home() {
- const news = await prisma.post.findMany({
+export default async function Home() {
+  const news = await prisma.post.findMany({
     where: { isLatest: true },
-});
+  });
   // const newsData = [
   //   {
   //     id: 1,
@@ -49,7 +56,8 @@ export  default async function Home() {
               Giải Pháp Bất Động Sản Toàn Diện
             </h1>
             <p className="text-lg text-white/90">
-              Chúng tôi cung cấp các dịch vụ bất động sản chuyên nghiệp, từ mua bán đến tư vấn thiết kế xây dựng và bán nội thất cao cấp.
+              Chúng tôi cung cấp các dịch vụ bất động sản chuyên nghiệp, từ mua
+              bán đến tư vấn thiết kế xây dựng và bán nội thất cao cấp.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Button asChild size="lg" className="gap-2">
@@ -58,7 +66,12 @@ export  default async function Home() {
                   <ArrowRight size={16} />
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="bg-white/10 text-white border-white/20 hover:bg-white/20">
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="bg-white/10 text-white border-white/20 hover:bg-white/20"
+              >
                 <Link href="/nganh-nghe">Khám phá dịch vụ</Link>
               </Button>
             </div>
@@ -72,13 +85,17 @@ export  default async function Home() {
             <div>
               <h2 className="text-3xl font-bold mb-6">Về Chúng Tôi</h2>
               <p className="text-muted-foreground mb-4">
-                Ngày 15/10/2011 Công ty cổ phần King real ra đời. Với sứ mệnh là cầu nối tuyệt vời nhất cho những sản phẩm
-                bất động sản của quý khách hàng. Chúng tôi hoạt động với phương châm:Uy tín-Tận Tâm-Trung Thực & Đầy trách nhiệm...!!!
-                Hy vọng sẽ đem đến cho quý khách hàng những sản phẩm để: Đầu tư sinh lãi!!! An cứ phát tài..!!
+                Ngày 15/10/2011 Công ty cổ phần King real ra đời. Với sứ mệnh là
+                cầu nối tuyệt vời nhất cho những sản phẩm bất động sản của quý
+                khách hàng. Chúng tôi hoạt động với phương châm:Uy tín-Tận
+                Tâm-Trung Thực & Đầy trách nhiệm...!!! Hy vọng sẽ đem đến cho
+                quý khách hàng những sản phẩm để: Đầu tư sinh lãi!!! An cứ phát
+                tài..!!
               </p>
               <p className="text-muted-foreground mb-6">
-                Với đội ngũ nhân viên chuyên nghiệp và am hiểu thị trường, chúng tôi cam kết mang đến giải pháp
-                bất động sản tối ưu cho từng khách hàng.
+                Với đội ngũ nhân viên chuyên nghiệp và am hiểu thị trường, chúng
+                tôi cam kết mang đến giải pháp bất động sản tối ưu cho từng
+                khách hàng.
               </p>
               <Button asChild size="lg" className="bg-[#DDB52F]">
                 <Link href="/gioi-thieu">Tìm hiểu thêm</Link>
@@ -101,7 +118,8 @@ export  default async function Home() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Dịch Vụ Nổi Bật</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Chúng tôi cung cấp các dịch vụ bất động sản chất lượng cao, đáp ứng mọi nhu cầu của khách hàng.
+              Chúng tôi cung cấp các dịch vụ bất động sản chất lượng cao, đáp
+              ứng mọi nhu cầu của khách hàng.
             </p>
           </div>
 
@@ -113,16 +131,22 @@ export  default async function Home() {
                 </div>
                 <CardTitle>Mua Bán Bất Động Sản</CardTitle>
                 <CardDescription>
-                  Dịch vụ mua bán bất động sản chuyên nghiệp với danh mục đa dạng
+                  Dịch vụ mua bán bất động sản chuyên nghiệp với danh mục đa
+                  dạng
                 </CardDescription>
               </CardHeader>
-              <CardContent >
+              <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Chúng tôi hỗ trợ khách hàng tìm kiếm, đánh giá và mua bán bất động sản phù hợp với nhu cầu và ngân sách.
+                  Chúng tôi hỗ trợ khách hàng tìm kiếm, đánh giá và mua bán bất
+                  động sản phù hợp với nhu cầu và ngân sách.
                 </p>
               </CardContent>
               <CardFooter>
-                <Button asChild variant="ghost" className="gap-2 px-0 text-primary">
+                <Button
+                  asChild
+                  variant="ghost"
+                  className="gap-2 px-0 text-primary"
+                >
                   <Link href="/nganh-nghe">
                     Xem chi tiết
                     <ArrowRight size={16} />
@@ -143,11 +167,16 @@ export  default async function Home() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Đội ngũ kiến trúc sư giàu kinh nghiệm sẽ giúp bạn thiết kế không gian sống hoặc làm việc đẹp và tiện nghi.
+                  Đội ngũ kiến trúc sư giàu kinh nghiệm sẽ giúp bạn thiết kế
+                  không gian sống hoặc làm việc đẹp và tiện nghi.
                 </p>
               </CardContent>
               <CardFooter>
-                <Button asChild variant="ghost" className="gap-2 px-0 text-primary">
+                <Button
+                  asChild
+                  variant="ghost"
+                  className="gap-2 px-0 text-primary"
+                >
                   <Link href="/goc-tu-van/thiet-ke">
                     Xem chi tiết
                     <ArrowRight size={16} />
@@ -168,11 +197,16 @@ export  default async function Home() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Chúng tôi giúp bạn lựa chọn nội thất phù hợp với không gian và phong cách sống, đảm bảo chất lượng và giá trị.
+                  Chúng tôi giúp bạn lựa chọn nội thất phù hợp với không gian và
+                  phong cách sống, đảm bảo chất lượng và giá trị.
                 </p>
               </CardContent>
               <CardFooter>
-                <Button asChild variant="ghost" className="gap-2 px-0 text-primary">
+                <Button
+                  asChild
+                  variant="ghost"
+                  className="gap-2 px-0 text-primary"
+                >
                   <Link href="/goc-tu-van/mua-ban-noi-that">
                     Xem chi tiết
                     <ArrowRight size={16} />
@@ -210,18 +244,27 @@ export  default async function Home() {
                 <CardHeader>
                   <div className="flex items-center gap-2 mb-2">
                     <Newspaper size={14} className="text-muted-foreground" />
-                    <span className="text-xs text-muted-foreground">10/03/2024</span>
+                    <span className="text-xs text-muted-foreground">
+                      10/03/2024
+                    </span>
                   </div>
                   <CardTitle className="line-clamp-1">{`${i.title}`}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-muted-foreground line-clamp-2" style={{ color: 'black' }}>
+                  <p
+                    className="text-sm text-muted-foreground line-clamp-2"
+                    style={{ color: "black" }}
+                  >
                     {`${i.description}`}
                   </p>
                 </CardContent>
                 <CardFooter>
-                  <Button asChild variant="ghost" className="gap-2 px-0 text-primary">
-                    <Link href={`/tin-tuc-su-kien-detail/${i.slug}`}>
+                  <Button
+                    asChild
+                    variant="ghost"
+                    className="gap-2 px-0 text-primary"
+                  >
+                    <Link href={`/tin-tuc-su-kien/${i.slug}`}>
                       Đọc tiếp
                       <ArrowRight size={16} />
                     </Link>
@@ -233,12 +276,15 @@ export  default async function Home() {
         </div>
       </section>
 
-      <section className="py-16 text-primary-foreground" style={{ borderTop: '1px solid #e5e7eb' }}>
+      <section
+        className="py-16 text-primary-foreground"
+        style={{ borderTop: "1px solid #e5e7eb" }}
+      >
         <div className="container px-4 md:px-6 text-center">
           <h2 className="text-3xl font-bold mb-4">Bạn Cần Tư Vấn?</h2>
           <p className="max-w-2xl mx-auto mb-8">
-            Chúng tôi sẵn sàng hỗ trợ bạn mọi lúc mọi nơi.
-            Liên hệ ngay để nhận tư vấn miễn phí!
+            Chúng tôi sẵn sàng hỗ trợ bạn mọi lúc mọi nơi. Liên hệ ngay để nhận
+            tư vấn miễn phí!
           </p>
           <Button asChild size="lg" variant="secondary">
             <Link href="/lien-he">Liên hệ ngay</Link>

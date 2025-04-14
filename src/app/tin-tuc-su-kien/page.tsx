@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Clock, User, Tag, Newspaper } from "lucide-react";
@@ -11,12 +12,13 @@ import {
 } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import prisma from "../lib/db";
+import { toast } from "sonner";
 
-export const metadata = {
-  title: "Tin Tức - Sự Kiện",
-  description:
-    "Tin tức, bài viết và kiến thức về bất động sản từ Bất Động Sản Dịch Vụ",
-};
+// export const metadata = {
+//   title: "Tin Tức - Sự Kiện",
+//   description:
+//     "Tin tức, bài viết và kiến thức về bất động sản từ Bất Động Sản Dịch Vụ",
+// };
 
 const blogPosts = [
   {
@@ -126,32 +128,43 @@ const categories = [
   { value: "cong-nghe", label: "Công nghệ" },
 ];
 
-export default async function BlogsPage() {
-  // const [Posts, setPosts] = useState<
-  //   {
-  //     id: number;
-  //     title: string;
-  //     description: string;
-  //     image: string;
-  //     category: string;
-  //     author: string;
-  //     date: string;
-  //     slug: string;
-  //     createdAt: string;
-  //   }[]
-  // >([]);
-  // useEffect(() => {
-  //   fetch("http://localhost:3000/api/post")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setPosts(data.data);
-  //       console.log("Posts:", data.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching posts:", error);
-  //     });
-  // }, []);
-  const posts = await prisma.post.findMany();
+type Posts = {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  category: string;
+  author: string;
+  slug: string;
+  content: string;
+  isLatest: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export default function BlogsPage() {
+  const [posts, setPosts] = useState<Posts[]>([]);
+
+  useEffect(() => {
+    fetchPost();
+  }, []);
+
+  const fetchPost = async () => {
+    try {
+      const response = await fetch("/api/post");
+      const result = await response.json();
+
+      if (!result.success) {
+        throw new Error(result.error || "Failed to fetch post");
+      }
+
+      setPosts(result.data);
+      console.log(result.data);
+    } catch (err) {
+      toast.error("Failed to fetch post");
+    }
+  };
+  console.log(posts);
   return (
     <div className="flex flex-col min-h-screen">
       <section className="relative h-[300px] md:h-[400px] flex items-center">
@@ -200,7 +213,7 @@ export default async function BlogsPage() {
                     <div className="flex items-center gap-2">
                       <Clock size={14} className="text-muted-foreground" />
                       <span className="text-xs text-muted-foreground">
-                        {post.createdAt.toLocaleDateString()}
+                        {post.createdAt}
                       </span>
                     </div>
                   </div>

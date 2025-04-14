@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -27,11 +28,13 @@ import {
   ReactPortal,
   AwaitedReactNode,
 } from "react";
-export const metadata = {
-  title: "Tuyển Dụng",
-  description:
-    "Thông tin tuyển dụng và cơ hội nghề nghiệp tại Bất Động Sản Dịch Vụ",
-};
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+// export const metadata = {
+//   title: "Tuyển Dụng",
+//   description:
+//     "Thông tin tuyển dụng và cơ hội nghề nghiệp tại Bất Động Sản Dịch Vụ",
+// };
 
 // const jobPositions = [
 //   {
@@ -119,10 +122,40 @@ export const metadata = {
 //     ]
 //   },
 // ];
+type JobPosition = {
+  id: string;
+  title: string;
+  description: string;
+  location: string;
+  type: string;
+  level: string;
+  requirements: string;
+  benefits: string;
+  salary: string;
+  createdAt: string;
+  updatedAt: string;
+};
+export default function TuyenDungPage() {
+  const [JobPositions, setJobPositions] = useState<JobPosition[]>([]);
+  useEffect(() => {
+    fetchJob();
+  }, []);
 
-export default async function TuyenDungPage() {
-  const jobPositions = await prisma.jobPosition.findMany();
-  console.log(jobPositions);
+  const fetchJob = async () => {
+    try {
+      const response = await fetch("/api/jobPosition");
+      const result = await response.json();
+
+      if (!result.success) {
+        throw new Error(result.error || "Failed to fetch post");
+      }
+
+      setJobPositions(result.data);
+      console.log(result.data);
+    } catch (err) {
+      toast.error("Failed to fetch post");
+    }
+  };
   return (
     <div className="flex flex-col min-h-screen">
       <section className="relative h-[300px] md:h-[400px] flex items-center">
@@ -323,7 +356,7 @@ export default async function TuyenDungPage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            {jobPositions.map((job) => (
+            {JobPositions.map((job) => (
               <Card key={job.id} className="overflow-hidden">
                 <CardHeader className="pb-3">
                   <div className="flex items-center gap-2 mb-2">
