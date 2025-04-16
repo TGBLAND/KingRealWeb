@@ -34,7 +34,7 @@ export default function GioiThieuPage() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="relative h-[400px] rounded-lg overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1497215842964-222b430dc094?q=80&w=1000&auto=format&fit=crop"
+                src="./images/about-us.png"
                 alt="Văn phòng công ty"
                 fill
                 className="object-cover"
@@ -55,6 +55,13 @@ export default function GioiThieuPage() {
                 đội ngũ chuyên viên giàu kinh nghiệm và am hiểu sâu sắc về thị
                 trường, chúng tôi cam kết mang đến cho khách hàng những giải
                 pháp tối ưu và hiệu quả nhất.
+              </p>
+              <p className="text-muted-foreground mb-5">
+                Khát khao lớn nhất của một đời người là có một mái ấm(Gọi là
+                Nhà) Để thoả mãn khát khao ấy.Chúng tôi sinh ra để gánh vát sứ
+                mệnh thiên liên ấy Là cầu nối tuyệt vời nhất là mang nhà của
+                người có kết nối cho người cần một cách cốt sao cho nhanh-Gọn
+                -lẹ... Với kỳ vọng là vui vẽ & nhẹ nhàng nhất có thể
               </p>
               <p className="text-muted-foreground">
                 Sự hài lòng của khách hàng là ưu tiên hàng đầu của chúng tôi.
@@ -171,14 +178,14 @@ export default function GioiThieuPage() {
               <div className="text-4xl font-bold text-primary mb-2">1000</div>
               <p className="text-muted-foreground">Khách hàng</p>
             </div>
-            {/* <div className="text-center p-6 bg-background rounded-lg shadow-sm">
-              <div className="text-4xl font-bold text-primary mb-2">500+</div>
+            <div className="text-center p-6 bg-background rounded-lg shadow-sm">
+              <div className="text-4xl font-bold text-primary mb-2">500</div>
               <p className="text-muted-foreground">Dự án thành công</p>
             </div>
             <div className="text-center p-6 bg-background rounded-lg shadow-sm">
-              <div className="text-4xl font-bold text-primary mb-2">50+</div>
+              <div className="text-4xl font-bold text-primary mb-2">50</div>
               <p className="text-muted-foreground">Chuyên viên</p>
-            </div> */}
+            </div>
           </div>
         </div>
       </section>
