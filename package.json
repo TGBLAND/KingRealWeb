@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "next-sitemap",
     "vercel-build": "prisma generate && next build",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint"
   },
